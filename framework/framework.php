@@ -1,11 +1,5 @@
 <?php
 
-function ob($content) {
-    ob_start();
-    $content;
-    return ob_get_clean();
-}
-
 function load_doc($html) {
     $doc = new DOMDocument();
     libxml_use_internal_errors(true);
@@ -76,13 +70,6 @@ function apply_data_attributes($html) {
     // Get every element in the document
     $nodes = $xpath->query("//*");
 
-    // First, make any transformations
-    // $nodes = iterator_to_array($nodes);
-    // foreach (array_reverse($nodes) as $node) {
-    //     find_component($doc, $node);
-    // }
-
-    //$nodes = $xpath->query("//*");
     // Apply data attributes to the nodes that need them
     foreach ($nodes as $node) {
         apply_single_data_attribute($node, 'ref');
