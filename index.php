@@ -1,5 +1,4 @@
 <?php
-$sidebar_posts = PostController::getSidebarPosts();
 
 ob_start();
 ?>

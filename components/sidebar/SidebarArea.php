@@ -1,6 +1,6 @@
 <?php
 
-import('/components/sidebar/SingleSidebarItem.php');
+import('/components/sidebar/SingleSidebarItem/SingleSidebarItem.php');
 
 function SidebarArea($props) {
     ['posts' => $posts] = $props;

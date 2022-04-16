@@ -1,7 +1,8 @@
 <?php
 
 import('/components/sidebar/SidebarArea.php');
-import('/components/post/PostBody.php');
+import('/components/post/PostBody/PostBody.php');
+import('/components/post-navigator/NextPreviousPost/NextPreviousPost.php');
 
 class SingleTemplate extends Template {
 
@@ -16,6 +17,7 @@ class SingleTemplate extends Template {
             <div>
                 <?= SidebarArea([ 'posts' => $this->sidebar_posts ]) ?>
                 <?= PostBody($this->current_post) ?>
+                <?= NextPreviousPost() ?>
             </div>
         <?php
 
