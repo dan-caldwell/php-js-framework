@@ -1,0 +1,19 @@
+<div x-data="{ open: false, visible_post: null, modal_content: '' }">
+    {% include 'components/ui/Button.html' with
+        {
+            'title': open_modal_title,
+            'on_click': on_click ?: 'open = !open'
+        }
+    %}
+    <div 
+        x-show="open" 
+        x-cloak
+        class="bg-black-semi absolute top-0 left-0 w-full h-full flex items-center justify-center"
+    >
+        <div class="bg-white p-4 shadow-lg max-w-7xl max-h-3/4 overflow-y-scroll" @click.outside="open = !open">
+            {% block modal_content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</div>

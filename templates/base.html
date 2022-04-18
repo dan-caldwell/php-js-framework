@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    {% block head %}
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+        <script type="module" src="{{ turbo_src }}"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'black-semi': 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    maxHeight: {
+                        '3/4': '75%'
+                    }
+                }
+            };
+        </script>
+        <script src="//unpkg.com/alpinejs" defer></script>
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

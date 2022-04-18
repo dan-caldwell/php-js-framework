@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block body %}
+    <div>Hello and welcome to my website</div>
+    {% embed 'components/ui/Modal.html' with {
+            open_modal_title: 'Open current post'
+        }
+    %}
+        {% block modal_content %}
+            <div>{{ current_post.title }}</div>
+            <div>{{ current_post.content|raw }}</div>
+        {% endblock %}
+    {% endembed %}
+    {% embed 'components/ui/Modal.html' with {
+            open_modal_title: 'Open a random post',
+            on_click: "
+                visible_post = getRandomInt(1, #{sidebar_posts|length}); 
+                open = !open;
+            "
+        }
+    %}
+        {% block modal_content %}
+            {% for post in sidebar_posts %}
+                <div x-show="visible_post === {{ loop.index }}">
+                    <a href="{{ post.link }}">{{ post.title }}</a>
+                    <div>{{ post.content|raw }}</div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+    {% embed 'components/ui/Modal.html' with {
+            open_modal_title: 'Fetch a post',
+            on_click: "
+                !modal_content ?
+                fetch('/wp-json/php_js_theme_html/latest_post')
+                    .then(res => res.text())
+                    .then(data => {
+                        modal_content = data; 
+                        open = !open;
+                    }) : 
+                open = !open;
+            "
+        } 
+    %}
+        {% block modal_content %}
+            <div x-html="modal_content"></div>
+        {% endblock %}
+    {% endembed %}
+    <script>
+        const getRandomInt = (min, max) => {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+    </script>
+{% endblock %}
