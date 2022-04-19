@@ -45,6 +45,7 @@
             <div x-html="modal_content"></div>
         {% endblock %}
     {% endembed %}
+    {% include 'components/drag-drop/DragDrop.html' %}
     <script>
         const getRandomInt = (min, max) => {
             min = Math.ceil(min);

@@ -1,3 +1,45 @@
-<div>
-    
+{% set reset_drag_state = '
+    dragging = false; 
+
+    startX = 0; 
+    startY = 0;
+' %}
+<div class="p-4 flex" x-data="dragDropData()">
+    <div class="bg-blue-200 w-64" x-ref="draggableArea">
+        <div
+            id="draggable-item-1"
+            x-data="{ dragX: 0, dragY: 0, startX: 0, startY: 0, currentBox: 'blue' }"
+            class="bg-yellow-200 p-2 m-2 cursor-pointer"
+            :class="{ 'bg-yellow-300': dragging }"
+            :style="`transform: translate(${dragX}px, ${dragY}px)`"
+            @mousedown="
+                startX = $event.clientX; 
+                startY = $event.clientY; 
+                dragging = true;
+            "
+            @mousemove.window="
+                if (dragging) {
+                    dragX = $event.clientX - startX; 
+                    dragY = $event.clientY - startY;
+                }
+            "
+            @mouseup="{{ reset_drag_state }}"
+            @mouseup.outside="{{ reset_drag_state }}"
+        >Draggable Item 1</div>
+    </div>
+    <div 
+        class="bg-red-200 w-64 min-h-48 ml-2"
+        @mouseenter="getBox()"
+    ></div>
 </div>
+<script>
+    function dragDropData() {
+        return {
+            dragging: false,
+            getBox() {
+                const { top, left, right, bottom } = this.$refs.draggableArea.querySelector('#draggable-item-1').getBoundingClientRect();
+                console.log({ top, left, right, bottom });
+            }
+        }
+    }
+</script>
