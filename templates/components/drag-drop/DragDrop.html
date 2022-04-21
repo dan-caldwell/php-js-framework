@@ -1,10 +1,10 @@
-<div class="p-4 flex" x-data="DragDrop()">
+<div id="drag-drop-1" class="p-4 flex" x-data="DragDrop()">
     <div class="bg-blue-200 w-64" x-ref="draggableArea">
         <div id="draggable-item-1" 
             x-data="DragDropItem()"
             class="bg-yellow-200 p-2 m-2 cursor-pointer" 
             :class="{ 'bg-yellow-300': dragging }"
-            :style="`transform: translate(${dragX}px, ${dragY}px)`" 
+            :style="`transform: translate(${dragX}px, ${dragY}px)`"
             @mousedown="
                 startX = $event.clientX; 
                 startY = $event.clientY; 
@@ -17,19 +17,26 @@
                     checkIfDraggableIsOverlapping();
                 }
             "
-            @mouseup="resetDragState()" 
-            @mouseup.outside="resetDragState()"
+            @mouseup="handleDraggableItemMouseUp()" 
+            @mouseup.outside="handleDraggableItemMouseUp()"
         >Draggable Item 1</div>
     </div>
     <div 
         class="bg-red-200 w-64 min-h-48 ml-2"
+        :class="{ 'bg-red-400': overlappingTarget }"
         x-ref="targetBox"
+        @append-draggable.window="
+            if ($event.detail.container === 'drag-drop-1') {
+                $el.appendChild($event.detail.node);
+            }
+        "
     ></div>
 </div>
 <script>
     function DragDrop() {
         return {
             dragging: false,
+            overlappingTarget: false,
             checkIfDraggableIsOverlapping() {
                 const { 
                     top: draggingTop, 
@@ -50,7 +57,9 @@
                     draggingLeft > boxRight
                 );
                 if (overlapping) {
-                    console.log('overlapping');
+                    if (!this.$data.overlappingTarget) this.$data.overlappingTarget = true;
+                } else {
+                    if (this.$data.overlappingTarget) this.$data.overlappingTarget = false;
                 }
             }
         }
@@ -61,12 +70,20 @@
             dragY: 0,
             startX: 0,
             startY: 0,
-            resetDragState() {
+            handleDraggableItemMouseUp() {
+                if (this.$data.overlappingTarget) {
+                    // The draggable item is overlapping the target box, so move it there
+                    this.$dispatch('append-draggable', {
+                        container: 'drag-drop-1',
+                        node: this.$el
+                    });
+                }
                 this.$data.dragging = false;
                 this.$data.startX = 0;
                 this.$data.startY = 0;
                 this.$data.dragX = 0;
                 this.$data.dragY = 0;
+                this.$data.overlappingTarget = false;
             }
         }
     }
