@@ -1,16 +1,10 @@
 <div 
-    class="bg-red-200 w-64 min-h-48 ml-2"
+    class="w-64 min-h-48 ml-2"
     id="{{ id }}"
-    :class="{ 'bg-red-400': overlappingTarget === '{{ id }}' }"
+    :class="overlappingTarget === '{{ id }}' ? 'bg-red-400' : 'bg-red-200'"
     @append-draggable.window="onAppendDraggable('{{ id }}')"
-    @click="handleClickTargetArea()"
 >
     <template x-for="{ title, id } in $data.draggableItems['{{ id }}']">
-        {% include 'components/DragDrop/DragDropItem/index.html' with
-            {
-                title: 'title',
-                id: 'id'
-            }
-        %}
+        {% include 'components/DragDrop/DragDropItem/index.html' %}
     </template>
 </div>

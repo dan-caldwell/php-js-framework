@@ -10,18 +10,20 @@ const elementOverlappingTarget = ({
         left: draggingLeft,
         right: draggingRight,
         bottom: draggingBottom,
+        width: draggingWidth,
+        height: draggingHeight
     } = element.getBoundingClientRect();
     const {
         top: boxTop,
         left: boxLeft,
         right: boxRight,
-        bottom: boxBottom
+        bottom: boxBottom,
     } = target.getBoundingClientRect();
     return !(
-        draggingTop > boxBottom ||
-        draggingRight < boxLeft ||
-        draggingBottom < boxTop ||
-        draggingLeft > boxRight
+        (draggingTop + (draggingHeight / 2)) > boxBottom ||
+        (draggingRight - (draggingWidth / 2)) < boxLeft ||
+        (draggingBottom - (draggingHeight / 2)) < boxTop ||
+        (draggingLeft + (draggingWidth / 2)) > boxRight
     );
 }
 
@@ -92,12 +94,6 @@ export function DragDrop() {
             } = this;
             if (targetAreaId !== trueTargetAreaId) return;
 
-            console.log({
-                elId: $el.id,
-                targetAreaId,
-                trueTargetAreaId
-            })
-
             let draggingData = {};
 
             const newDraggableItems = clone($data.draggableItems);
@@ -120,9 +116,5 @@ export function DragDrop() {
             newDraggableItems[targetAreaId].push(draggingData);
             this.$data.draggableItems = newDraggableItems;
         },
-
-        handleClickTargetArea() {
-            const { $el, $data } = this;
-        }
     }
 }
