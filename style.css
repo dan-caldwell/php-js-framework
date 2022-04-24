@@ -3,50 +3,6 @@ Theme Name: PHP JS Framework
 Text Domain: phpjsframework
 */
 
-body {
-    background: #fff;
-}
-[data-hidden] {
-    display: none !important;
-}
-.cool-box {
-    background: orange;
-    padding: 50px;
-}
-.hidden {
-    display: none;
-}
-.bg-green {
-    background: green;
-}
-.bg-blue {
-    background: lightskyblue;
-}
-
-.font-bold {
-    font-weight: bold;
-}
-
-.text-lg {
-    font-size: 1.2rem;
-}
-
-.w-4 {
-    width: calc(4 * 0.25rem);
-}
-
-.h-4 {
-    height: calc(4 * 0.25rem);
-}
-
-.w-8 {
-    width: calc(8 * 0.25rem);
-}
-
-.h-8 {
-    width: calc(8 * 0.25rem);
-}
-
-.flex {
-    display: flex;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

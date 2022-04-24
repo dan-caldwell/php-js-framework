@@ -1,0 +1,13 @@
+<div
+    x-data="DragDropItem({ {{ title }}, {{ id }} })"
+    :key="{{ id }}"
+    :id="{{ id }}"
+    class="bg-yellow-200 p-2 m-2 cursor-pointer" 
+    :class="{ 'bg-yellow-300': dragging }"
+    :style="`transform: translate(${dragX}px, ${dragY}px)`"
+    @mousedown="handleMouseDown()"
+    @mousemove.window="handleMouseMove()"
+    @mouseup="handleMouseUp()" 
+    @mouseup.outside="handleMouseUp()"
+    x-text="{{ title }}"
+></div>

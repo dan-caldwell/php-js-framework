@@ -1,0 +1,34 @@
+{
+  "name": "php-js-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently npm:dev:*",
+    "build:webpack": "npx webpack build --config ./webpack.config.js",
+    "build:tailwind": "npx tailwindcss -i ./style.css -o ./bundle/main.css --minify",
+    "dev:webpack": "npx webpack watch --config ./webpack.config.js",
+    "dev:tailwind": "npx tailwindcss -i ./style.css -o ./bundle/main.css --minify --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan-caldwell/php-js-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dan-caldwell/php-js-framework/issues"
+  },
+  "homepage": "https://github.com/dan-caldwell/php-js-framework#readme",
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "tailwindcss": "^3.0.24",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "alpinejs": "^3.10.2",
+    "clone": "^2.1.2"
+  }
+}

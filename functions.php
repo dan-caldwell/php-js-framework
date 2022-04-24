@@ -13,7 +13,13 @@ function render_twig($view_name, $values) {
     ]);
     $turbo_src = get_template_directory_uri() . '/js/node_modules/@hotwired/turbo/dist/turbo.es2017-umd.js';
     echo $twig->render($view_name, array_merge([
-        'turbo_src' => $turbo_src
+        'turbo_src' => $turbo_src,
+        'scripts' => [
+            get_template_directory_uri() . '/bundle/main.js'
+        ],
+        'styles' => [
+            get_template_directory_uri() . '/bundle/main.css'
+        ]
     ], $values));
 }
 

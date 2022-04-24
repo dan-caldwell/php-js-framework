@@ -7,26 +7,13 @@
                 display: none !important;
             }
         </style>
+        {% for style in styles %}
+            <link rel="stylesheet" href="{{ style }}">
+        {% endfor %}
+        {% for script in scripts %}
+            <script type="module" src="{{ script }}" defer></script>
+        {% endfor %}
         <script type="module" src="{{ turbo_src }}"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            'black-semi': 'rgba(0, 0, 0, 0.5)'
-                        }
-                    },
-                    maxHeight: {
-                        '3/4': '75%'
-                    },
-                    minHeight: {
-                        '48': '12rem'
-                    }
-                }
-            };
-        </script>
-        <script src="//unpkg.com/alpinejs" defer></script>
     {% endblock %}
 </head>
 <body>
