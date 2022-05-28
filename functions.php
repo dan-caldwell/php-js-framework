@@ -7,7 +7,7 @@ function import($path) {
 import('/vendor/autoload.php');
 
 function render_twig($view_name, $values) {
-    $loader = new \Twig\Loader\FilesystemLoader(get_template_directory() . '/templates');
+    $loader = new \Twig\Loader\FilesystemLoader(get_template_directory() . '/twig_templates');
     $twig = new \Twig\Environment($loader, [
         //'cache' => get_template_directory() . '/cache',
     ]);
